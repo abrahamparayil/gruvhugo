@@ -2,39 +2,47 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     {{ if .IsHome}}
-        <title>{{.Site.Title}}</title>
-        <meta name="description" content="{{ .Site.Params.main.description  }}" >
-        <meta property="og:title" content="{{ .Site.Title }}" />
-        <meta property="og:description" content="{{
-				.Site.Params.main.description | plainify }}"/>
-        <meta property="og:image" content="{{ .Site.Params.main.img | absURL }}" />
-				<meta name="keywords" content="{{ $.Site.Params.main.Keywords }}"/>
+    <title>{{.Site.Title}}</title>
+    <meta name="description" content="{{ .Site.Params.main.description  }}">
+    <meta property="og:title" content="{{ .Site.Title }}" />
+    <meta property="og:description"
+          content="{{.Site.Params.main.description | plainify }}" />
+    <meta property="og:image" content="{{ .Site.Params.main.img | absURL }}" />
+    <meta name="keywords" content="{{ $.Site.Params.main.Keywords }}" />
     {{else}}
-        <title>{{.Title}} | {{.Site.Title}}</title>
-        <meta name="description" content="{{.Title}}">
-        <meta property="og:site_name" content="{{ .Title }}" />
-        <meta property="og:title" content="{{ .Site.Title }}" />
-        <meta property="og:description" content="{{ .Summary | plainify}}"/>
-        <meta property="og:image" content="{{ .Site.Params.main.img | absURL }}" />
-				<meta name="keywords" content="{{ with .Params.Keywords }}{{ else }}{{ $.Site.Params.Keywords }}{{ end }}"/>
+    <title>{{.Title}} | {{.Site.Title}}</title>
+    <meta name="description" content="{{.Title}}">
+    <meta property="og:site_name" content="{{ .Title }}" />
+    <meta property="og:title" content="{{ .Site.Title }}" />
+    <meta property="og:description" content="{{ .Summary | plainify}}" />
+    <meta property="og:image" content="{{ .Site.Params.main.img | absURL }}" />
+    <meta name="keywords"
+          content="{{ with .Params.Keywords }}{{ else }}{{ $.Site.Params.Keywords }}{{ end }}" />
     {{end}}
     {{ if .Site.Params.main.enableKatex }}
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css"
+        integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI"
+          crossorigin="anonymous">
 
     <!-- The loading of KaTeX is deferred to speed up page rendering -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js"
+        integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t"
+        crossorigin="anonymous">
+    </script>
 
     <!-- To automatically render math in text elements, include the auto-render extension: -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
-        onload="renderMathInElement(document.body);"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js"
+        integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);">
+    </script>
     {{end}}
     <meta name="keywords" content="{{ .Site.Params.main.metaKeywords }}">
-    <link rel="icon" type="image/svg" href='{{ .Site.Params.main.icon | absURL }}'/>
+    <link rel="icon" type="image/svg" href='{{ .Site.Params.main.icon | absURL }}' />
     <meta name="author" content='{{ .Site.Params.main.name }}'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {{hugo.Generator}}
     {{ $style := resources.Get "/sass/main.scss" | toCSS | minify | fingerprint }}
-    <link rel="stylesheet" href="{{ $style.Permalink }}" type="text/css" media="screen" >
+    <link rel="stylesheet" href="{{ $style.Permalink }}" type="text/css" media="screen">
 
     {{ range .Site.Params.style.custom_css -}}
     <link rel="stylesheet" href="{{ . | absURL }}">
@@ -47,7 +55,7 @@
 
     <!-- RSS -->
     {{ with .OutputFormats.Get "rss" -}}
-        {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+    {{ printf `
+    <link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
     {{ end -}}
 </head>
-
